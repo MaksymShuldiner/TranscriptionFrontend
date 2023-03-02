@@ -1,0 +1,49 @@
+
+<div class="tab">
+  <button class="tablinks" (click)="openTab('listen')">Listen</button>
+  <button class="tablinks" (click)="openTab('view')">View</button>
+</div>
+
+<div id="tab1" class="tabcontent" [hidden]="selectedTab !== 'listen'">
+  <div style="width: 200px;">
+    <select (ngModelChange)="onLanguageChange($event)" [(ngModel)]="language" style="background-color: #f2f2f2; border: 1px solid #ccc; border-radius: 4px; color: #444; font-size: 16px; padding: 10px; width: 100%;">
+      <option *ngFor="let language of languages" [value]="language.label">
+        {{language.value}}
+      </option>
+    </select>
+  </div>
+
+  <br/>
+
+  <button (click)="startPlay()">start</button>
+  <button (click)="stopPlay()">play</button>
+  <h1>{{text}}</h1>
+
+  <br/>
+
+  <button (click)="chooseType('segment')">segment</button>
+  <button (click)="chooseType('full')">full</button>
+</div>
+
+<div id="tab2" class="tabcontent" [hidden]="selectedTab !== 'view'">
+
+  <h1>{{text}}</h1>
+  <br/>
+
+  <button (click)="chooseType('segment')">segment</button>
+  <button (click)="chooseType('full')">full</button>
+
+  <h1>To Language</h1>
+  <div style="width: 200px;" *ngIf="reload">
+    <select [(ngModel)]="targetLanguage" style="background-color: #f2f2f2; border: 1px solid #ccc; border-radius: 4px; color: #444; font-size: 16px; padding: 10px; width: 100%;">
+      <option *ngFor="let language of getTranslateOptions()" [value]="language.label">
+        {{language.value}}
+      </option>
+    </select>
+  </div>
+
+  <br/>
+  <button (click)="translate()">translate</button>
+  <br/>
+  <h1>{{translation}}</h1>
+</div>
